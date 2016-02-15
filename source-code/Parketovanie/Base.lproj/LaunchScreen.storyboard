@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bakalárska práca" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah1-ZZ-Bf1">
+                                <rect key="frame" x="150" y="210" width="301" height="85"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="V7o-WK-zoS"/>
+                                    <constraint firstAttribute="width" constant="301" id="iAh-ym-tls"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="iAh-ym-tls"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parketovanie - prototyp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DJ-X2-F2b">
+                                <rect key="frame" x="150" y="303" width="300" height="85"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="270" id="aRy-ch-vYc"/>
+                                    <constraint firstAttribute="width" constant="270" id="f4k-2a-TPS"/>
+                                    <constraint firstAttribute="height" constant="85" id="kKh-Up-fnq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="f4k-2a-TPS"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7DJ-X2-F2b" firstAttribute="leading" secondItem="Ah1-ZZ-Bf1" secondAttribute="leading" id="Gkh-E6-8pk"/>
+                            <constraint firstItem="Ah1-ZZ-Bf1" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="UKh-Bx-Y7j"/>
+                            <constraint firstItem="7DJ-X2-F2b" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="aOP-wB-TbV"/>
+                            <constraint firstItem="7DJ-X2-F2b" firstAttribute="top" secondItem="Ah1-ZZ-Bf1" secondAttribute="bottom" constant="8" symbolic="YES" id="bai-qo-bjC"/>
+                            <constraint firstItem="Ah1-ZZ-Bf1" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="190" id="j08-u4-fCn"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+</document>
