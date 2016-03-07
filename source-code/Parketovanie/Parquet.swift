@@ -12,6 +12,7 @@ import SpriteKit
 
 class Parquet: SKSpriteNode {
     var movable = true
+    var barPosition = CGPoint()
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
@@ -20,7 +21,9 @@ class Parquet: SKSpriteNode {
     init(imageNamed: String) {
         let parquetTexture = SKTexture(imageNamed: imageNamed)
         super.init(texture: parquetTexture, color: UIColor.whiteColor(), size: parquetTexture.size())
-        super.name = "parquet"
+        self.name = imageNamed
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.zPosition = 1
     }
     
     override func isEqualToNode(node: SKNode) -> Bool {
@@ -29,4 +32,13 @@ class Parquet: SKSpriteNode {
         }
         return false
     }
+    
+    func barPosition(point: CGPoint) {
+        self.barPosition = point
+        self.position = point
+    }
+    func changeToBarPosition() {
+        self.position = self.barPosition
+    }
+    
 }

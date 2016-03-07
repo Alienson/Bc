@@ -12,17 +12,20 @@ import SpriteKit
 class Surface {
     var arrayOfCells: [[Cell]] = [[Cell]]()
     
+    init() {
+        
+    }
+    
     init(rows: Int, collumns: Int, parent: SKSpriteNode) {
         for row in 0...rows-1 {
             var cellsForRow = [Cell]()
             for collumn in 0...collumns-1 {
                 let cell = Cell(row: row, collumn: collumn, isEmpty: false)
                 cellsForRow.append(cell)
-                let x = CGRectGetMidX(parent.frame) - CGFloat(50 * row)
-                let y = CGRectGetMidY(parent.frame) - CGFloat(50 * collumn)
+                let x = CGRectGetMidX(parent.frame) - CGFloat(50 * collumn)
+                let y = CGRectGetMidY(parent.frame) - CGFloat(50 * row)
                 cell.position = CGPoint(x: x-250, y: y-200)
                 parent.addChild(cell)
-                print(row, collumn)
             }
             arrayOfCells.append(cellsForRow)
         }

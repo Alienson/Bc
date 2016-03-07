@@ -25,6 +25,7 @@ class Cell: SKSpriteNode {
             super.init(texture: cellTexture, color: UIColor.whiteColor(), size: cellTexture.size())
             reserved = false
         }
+        self.name = "cell"
         self.row = row
         self.collumn = collumn
     }

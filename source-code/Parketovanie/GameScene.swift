@@ -9,15 +9,15 @@
 import SpriteKit
 import Foundation
 
-
-private let movableString = "movable"
-
 class GameScene: SKScene {
+    var selectedNode = SKNode()
     
     var listOfParquets: [Parquet] = []
-    var selectedNode = SKSpriteNode()
     let background = SKSpriteNode(imageNamed: "hracia_plocha_lvl1")
     var surfaceBackground = SKSpriteNode()
+    var surf = Surface()
+    
+    let panRec = UIPanGestureRecognizer()
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -32,93 +32,103 @@ class GameScene: SKScene {
         makeSurface()
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func didMoveToView(view: SKView) {
-        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanFrom:"))
-        self.view!.addGestureRecognizer(gestureRecognizer)
+//        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePanFrom:"))
+//        self.view!.addGestureRecognizer(gestureRecognizer)
+//        
+        let doubleTap = UITapGestureRecognizer(target: self, action: "doubleTapped:")
+        doubleTap.numberOfTapsRequired = 2
+        view.addGestureRecognizer(doubleTap)
         
-        let tap = UITapGestureRecognizer(target: self, action: "doubleTapped")
-        tap.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tap)
+        panRec.addTarget(self, action: "panned:")
+        panRec.maximumNumberOfTouches = 1
+        self.view!.addGestureRecognizer(panRec)
     }
     
-    func doubleTapped() {
+    func selectedObject(sender: UIPanGestureRecognizer) -> SKNode {
+        var touchLocation: CGPoint = sender.locationInView(self.view!)
+        touchLocation = self.convertPointFromView(touchLocation)
+        let selectedNode = self.nodeAtPoint(touchLocation)
+        return selectedNode
+    }
+    
+    func panned(sender: UIPanGestureRecognizer) {
+        let selectedNode = selectedObject(sender)
+        // ak je parketa tak ho oznaci
+        self.selectedNode = selectedNode
+        let selectedParquet: Parquet
         if selectedNode.isKindOfClass(Parquet) {
+            selectedParquet = selectedNode as! Parquet
+        }
+        
+        if sender.state == .Began {
+            print("panned BEGAN")
+            
+        }
+        if sender.state == .Changed {
+            // vlozit podmienku na hybanie len s jednym objektom
+            // teraz interaguje so vsetkymi parketami ponad ktore prejde
+            self.selectedNode.zPosition = 15
+            var translation = sender.translationInView(sender.view!)
+            translation = CGPoint(x: translation.x, y: -translation.y)
+            let position = self.selectedNode.position
+            self.selectedNode.position = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
+            sender.setTranslation(CGPointZero, inView: sender.view)
+            
+            //umiestni node do stredu
+            //self.selectedNode.position = CGPoint(x: surfaceBackground.frame.midX, y: surfaceBackground.frame.midY)
+            
+            //print("panned CHANGED")
+        }
+        // opravit aby ukoncilo aj ked nie je nad parketou
+        if sender.state == .Ended {
+            print("panned ENDED")
+            self.selectedNode.zPosition = 0
+            if let selectedParquet = selectedParquet {
+                selectedParquet.changeToBarPosition()
+            }
+            
+        }
+        
+        self.selectedNode = SKNode()
+        
+        //print(selectedNode.name)
+    }
+    
+    func doubleTapped(sender: UIPanGestureRecognizer) {
+        print("TAPPED")
+        let selectedNode = selectedObject(sender)
+        if selectedNode.isKindOfClass(Parquet) {
+            print(selectedNode.name)
             //selectedNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            selectedNode.runAction(SKAction.rotateByAngle(degToRad(90.0), duration: 0.1))
+            //selectedNode.runAction(SKAction.rotateByAngle(degToRad(90.0), duration: 0.1))
             //selectedNode.anchorPoint = CGPoint(x: 0, y: 0)
         }
     }
     
-    func handlePanFrom(recognizer : UIPanGestureRecognizer) {
-        if recognizer.state == .Began {
-            var touchLocation = recognizer.locationInView(recognizer.view)
-            touchLocation = self.convertPointFromView(touchLocation)
-            
-            self.selectNodeForTouch(touchLocation)
-        } else if recognizer.state == .Changed {
-            var translation = recognizer.translationInView(recognizer.view!)
-            translation = CGPoint(x: translation.x, y: -translation.y)
-            
-            self.panForTranslation(translation)
-            
-            recognizer.setTranslation(CGPointZero, inView: recognizer.view)
-        } else if recognizer.state == .Ended {
-            if selectedNode.name != movableString {
-                let scrollDuration = 0.2
-                let velocity = recognizer.velocityInView(recognizer.view)
-                let pos = selectedNode.position
-                
-                // This just multiplies your velocity with the scroll duration.
-                let p = CGPoint(x: velocity.x * CGFloat(scrollDuration), y: velocity.y * CGFloat(scrollDuration))
-                
-                var newPos = CGPoint(x: pos.x + p.x, y: pos.y + p.y)
-                newPos = self.boundLayerPos(newPos)
-                selectedNode.removeAllActions()
-                
-                let moveTo = SKAction.moveTo(newPos, duration: scrollDuration)
-                moveTo.timingMode = .EaseOut
-                selectedNode.runAction(moveTo)
-            }
-        }
-    }
+    
     
     func degToRad(degree: Double) -> CGFloat {
         return CGFloat(degree / 180.0 * M_PI)
     }
-    
-    func selectNodeForTouch(touchLocation : CGPoint) {
-        // 1
-        let touchedNode = self.nodeAtPoint(touchLocation)
-        
-        if touchedNode.isKindOfClass(Parquet) {
-            // 2
-            if !selectedNode.isEqual(touchedNode) {
-                selectedNode.removeAllActions()
-                
-                selectedNode = touchedNode as! SKSpriteNode
-                
-            }
-            //let click = SKAction.playSoundFileNamed("click.wav", waitForCompletion: true)
-            
-        }
-    }
+
     
     func deSelectNodeForTouch(touchLocation : CGPoint) {
-        selectedNode = SKSpriteNode()
+//        selectedNode = SKSpriteNode()
     }
     
     
     
     func panForTranslation(translation : CGPoint) {
-        let position = selectedNode.position
-        if selectedNode.isMemberOfClass(Parquet){
-            selectedNode.position = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
-        }
+//        let position = selectedNode.position
+//        if selectedNode.isMemberOfClass(Parquet){
+//            print(selectedNode.name)
+//            selectedNode.position = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
+//        }
     }
     
     func boundLayerPos(aNewPosition : CGPoint) -> CGPoint {
@@ -138,7 +148,7 @@ class GameScene: SKScene {
         surfaceBackground.position = CGPoint(x: 280, y: 176)
         surfaceBackground.alpha = CGFloat(0.5)
         addChild(surfaceBackground)
-        var surf = Surface(rows: 3, collumns: 3, parent: surfaceBackground)
+        self.surf = Surface(rows: 3, collumns: 4, parent: surfaceBackground)
         
     }
     
@@ -153,38 +163,28 @@ class GameScene: SKScene {
         let offset = CGFloat(12.5)
         let offsetY = CGFloat(100)
         let width = CGFloat(280)
+        let firstLineParquets = CGFloat(250)
+        let secondLineParquets = CGFloat(150)
 //        _ = leftBar.size.height
 //        let width = leftBar.size.width
         
         
         
         let mono = Parquet(imageNamed: "1-mono")
-        mono.position       = CGPointMake(width / 4 - offset, offsetY+350)
-        mono.anchorPoint    = CGPoint(x: 0.5, y: 0.5)
-        
         let duo = Parquet(imageNamed: "2-duo")
-        duo.position        = CGPointMake(width / 2, offsetY+350+25)
-        duo.anchorPoint     = CGPoint(x: 0.5, y: 0.5)
-        
         let trio = Parquet(imageNamed: "3-3I")
-        trio.position       = CGPointMake(3 * width / 4 + offset, offsetY+350+50)
-        trio.anchorPoint    = CGPoint(x: 0.5, y: 0.5)
-        
         let roztek = Parquet(imageNamed: "4-roztek")
-        roztek.position     = CGPointMake(width / 3 - offset, offsetY+200)
-        roztek.anchorPoint  = CGPoint(x: 0.5, y: 0.5)
-        
         let stvorka = Parquet(imageNamed: "5-stvorka")
-        stvorka.position    = CGPointMake(2 * width / 3 + offset, offsetY+200)
-        stvorka.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
         let elko = Parquet(imageNamed: "6-elko")
-        elko.position       = CGPointMake(width / 3 - offset, offsetY)
-        elko.anchorPoint    = CGPoint(x: 0.5, y: 0.5)
-        
         let elko_obratene = Parquet(imageNamed: "7-elko-obratene")
-        elko_obratene.position    = CGPointMake(2 * width / 3 + offset, offsetY)
-        elko_obratene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        mono.barPosition(CGPointMake(width / 4 - offset, offsetY+firstLineParquets))
+        duo.barPosition(CGPointMake(width / 2, offsetY+firstLineParquets+25))
+        trio.barPosition(CGPointMake(3 * width / 4 + offset, offsetY+firstLineParquets+50))
+        roztek.barPosition(CGPointMake(width / 3 - offset, offsetY+secondLineParquets))
+        stvorka.barPosition(CGPointMake(2 * width / 3 + offset, offsetY+secondLineParquets))
+        elko.barPosition(CGPointMake(width / 3 - offset, offsetY))
+        elko_obratene.barPosition(CGPointMake(2 * width / 3 + offset, offsetY))
         
         listOfParquets.append(mono)
         listOfParquets.append(duo)
@@ -195,57 +195,41 @@ class GameScene: SKScene {
         listOfParquets.append(elko_obratene)
         
         for par in listOfParquets {
-            par.name = movableString
             par.movable = true
-            par.zPosition = 0
             background.addChild(par)
         }
     }
 
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       /* Called when a touch begins */
-        
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            let touchedNode = nodeAtPoint(location)
-            touchedNode.zPosition = 15
-            
-            //let liftUp = SKAction.scaleTo(1.2, duration: 0.2)
-            //touchedNode.runAction(liftUp, withKey: "pickup")
-            selectNodeForTouch(location)
-        }
-        
-    }
+//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//       /* Called when a touch begins */
+//        print("touch BEGAN")
+//        for touch in touches {
+//            let location = touch.locationInNode(self)
+//            print(nodeAtPoint(location).name)
+//        }
+//    }
+//    
+//    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        //print("touch MOVED")
+//        for touch in touches {
+//            let location = touch.locationInNode(self)
+//            print(nodeAtPoint(location).name)
+//        }
+//    }
+//    
+//    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        /* Called when a touch begins */
+//        print("touch ENDED")
+//        for touch in touches {
+//            let location = touch.locationInNode(self)
+//            print(nodeAtPoint(location).name)
+//        
+//        }
+//    }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        /* Called when a touch begins */
-        
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            let touchedNode = nodeAtPoint(location)
-            touchedNode.zPosition = 0
-            
-            //let dropDown = SKAction.scaleTo(1.0, duration: 0.2)
-            touchedNode.position.x = touchedNode.position.x - touchedNode.position.x % 10
-            //point.x - point.x % 10
-            touchedNode.position.y = touchedNode.position.y - touchedNode.position.y % 10
-            //touchedNode.runAction(dropDown, withKey: "drop")
-            deSelectNodeForTouch(location)
-        
-        }
-        
-    }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            
-            deSelectNodeForTouch(location)
-            //selectedNode = SKSpriteNode()
-        }
-    }
     
    
     override func update(currentTime: CFTimeInterval) {

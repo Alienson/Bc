@@ -17,6 +17,7 @@
 		5391121C1C3AB072006BC782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5391121A1C3AB072006BC782 /* Main.storyboard */; };
 		5391121E1C3AB072006BC782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5391121D1C3AB072006BC782 /* Assets.xcassets */; };
 		539112211C3AB072006BC782 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5391121F1C3AB072006BC782 /* LaunchScreen.storyboard */; };
+		539FB8661C75397400E31BD1 /* RotatePad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539FB8651C75397400E31BD1 /* RotatePad.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		5391121D1C3AB072006BC782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		539112201C3AB072006BC782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		539112221C3AB072006BC782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		539FB8651C75397400E31BD1 /* RotatePad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatePad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				5318E9971C43EF5800CB2430 /* Parquet.swift */,
 				5346B4F61C44A3D000B1D741 /* Cell.swift */,
 				538A53D01C70F3E500F75D20 /* Surface.swift */,
+				539FB8651C75397400E31BD1 /* RotatePad.swift */,
 				5391121A1C3AB072006BC782 /* Main.storyboard */,
 				5391121D1C3AB072006BC782 /* Assets.xcassets */,
 				5391121F1C3AB072006BC782 /* LaunchScreen.storyboard */,
@@ -162,6 +165,7 @@
 			files = (
 				539112171C3AB072006BC782 /* GameScene.swift in Sources */,
 				538A53D11C70F3E500F75D20 /* Surface.swift in Sources */,
+				539FB8661C75397400E31BD1 /* RotatePad.swift in Sources */,
 				5318E9981C43EF5800CB2430 /* Parquet.swift in Sources */,
 				5346B4F71C44A3D000B1D741 /* Cell.swift in Sources */,
 				539112191C3AB072006BC782 /* GameViewController.swift in Sources */,
