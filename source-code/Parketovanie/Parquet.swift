@@ -18,6 +18,10 @@ class Parquet: SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
+    init() {
+        super.init(texture: nil, color: UIColor.whiteColor(), size: CGSize(width: 50,height: 50))
+    }
+    
     init(imageNamed: String) {
         let parquetTexture = SKTexture(imageNamed: imageNamed)
         super.init(texture: parquetTexture, color: UIColor.whiteColor(), size: parquetTexture.size())

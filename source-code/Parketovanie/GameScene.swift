@@ -16,6 +16,7 @@ class GameScene: SKScene {
     let background = SKSpriteNode(imageNamed: "hracia_plocha_lvl1")
     var surfaceBackground = SKSpriteNode()
     var surf = Surface()
+    var rotatePad = RotatePad(size: CGSize(width: 200, height: 200))
     
     let panRec = UIPanGestureRecognizer()
     
@@ -30,6 +31,7 @@ class GameScene: SKScene {
         
         leftBarlvl1()
         makeSurface()
+        makeRoratePad()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,43 +60,46 @@ class GameScene: SKScene {
     
     func panned(sender: UIPanGestureRecognizer) {
         let selectedNode = selectedObject(sender)
-        // ak je parketa tak ho oznaci
-        self.selectedNode = selectedNode
-        let selectedParquet: Parquet
         if selectedNode.isKindOfClass(Parquet) {
-            selectedParquet = selectedNode as! Parquet
+            self.selectedNode = selectedNode
         }
         
         if sender.state == .Began {
             print("panned BEGAN")
-            
+            if let selectedParquet = self.selectedNode as? Parquet {
+                selectedParquet.zPosition = 15
+            }
         }
         if sender.state == .Changed {
-            // vlozit podmienku na hybanie len s jednym objektom
-            // teraz interaguje so vsetkymi parketami ponad ktore prejde
-            self.selectedNode.zPosition = 15
-            var translation = sender.translationInView(sender.view!)
-            translation = CGPoint(x: translation.x, y: -translation.y)
-            let position = self.selectedNode.position
-            self.selectedNode.position = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
-            sender.setTranslation(CGPointZero, inView: sender.view)
-            
-            //umiestni node do stredu
-            //self.selectedNode.position = CGPoint(x: surfaceBackground.frame.midX, y: surfaceBackground.frame.midY)
-            
-            //print("panned CHANGED")
-        }
-        // opravit aby ukoncilo aj ked nie je nad parketou
-        if sender.state == .Ended {
-            print("panned ENDED")
-            self.selectedNode.zPosition = 0
-            if let selectedParquet = selectedParquet {
-                selectedParquet.changeToBarPosition()
+            if let selectedParquet = self.selectedNode as? Parquet {
+                var translation = sender.translationInView(sender.view!)
+                translation = CGPoint(x: translation.x, y: -translation.y)
+                let position = selectedParquet.position
+                selectedParquet.position = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
+                sender.setTranslation(CGPointZero, inView: sender.view)
+                
+                //umiestni node do stredu
+                //self.selectedNode.position = CGPoint(x: surfaceBackground.frame.midX, y: surfaceBackground.frame.midY)
+                
+                //print("panned CHANGED")
             }
             
         }
-        
-        self.selectedNode = SKNode()
+        if sender.state == .Ended {
+            print("panned ENDED")
+            if let selectedParquet = self.selectedNode as? Parquet {
+                selectedParquet.zPosition = 1
+                if rotatePad.isOnPadPosition(selectedNode.position) && rotatePad.isPadEmpty {
+                    print(rotatePad.isPadEmpty)
+                    rotatePad.setParquetToPad(selectedParquet)
+                    selectedParquet.position = rotatePad.midOfPad()
+                }
+                else {
+                    selectedParquet.changeToBarPosition()
+                }
+            }
+            deSelectNode()
+        }
         
         //print(selectedNode.name)
     }
@@ -117,8 +122,8 @@ class GameScene: SKScene {
     }
 
     
-    func deSelectNodeForTouch(touchLocation : CGPoint) {
-//        selectedNode = SKSpriteNode()
+    func deSelectNode() {
+        self.selectedNode = SKSpriteNode()
     }
     
     
@@ -150,6 +155,10 @@ class GameScene: SKScene {
         addChild(surfaceBackground)
         self.surf = Surface(rows: 3, collumns: 4, parent: surfaceBackground)
         
+    }
+    
+    func makeRoratePad() {
+        addChild(rotatePad)
     }
     
     func leftBarlvl1() {
@@ -202,32 +211,32 @@ class GameScene: SKScene {
 
     
     
-//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//       /* Called when a touch begins */
-//        print("touch BEGAN")
-//        for touch in touches {
-//            let location = touch.locationInNode(self)
-//            print(nodeAtPoint(location).name)
-//        }
-//    }
-//    
-//    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        //print("touch MOVED")
-//        for touch in touches {
-//            let location = touch.locationInNode(self)
-//            print(nodeAtPoint(location).name)
-//        }
-//    }
-//    
-//    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        /* Called when a touch begins */
-//        print("touch ENDED")
-//        for touch in touches {
-//            let location = touch.locationInNode(self)
-//            print(nodeAtPoint(location).name)
-//        
-//        }
-//    }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+       /* Called when a touch begins */
+        print("touch BEGAN")
+        for touch in touches {
+            let location = touch.locationInNode(self)
+            print(nodeAtPoint(location).name)
+        }
+    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        //print("touch MOVED")
+        for touch in touches {
+            let location = touch.locationInNode(self)
+            print(nodeAtPoint(location).name)
+        }
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        /* Called when a touch begins */
+        print("touch ENDED")
+        for touch in touches {
+            let location = touch.locationInNode(self)
+            print(nodeAtPoint(location).name)
+        
+        }
+    }
     
     
     
