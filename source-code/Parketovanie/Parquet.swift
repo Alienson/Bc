@@ -11,8 +11,9 @@ import SpriteKit
 
 
 class Parquet: SKSpriteNode {
-    var movable = true
+    var rotatable = false
     var barPosition = CGPoint()
+    var lastPosition = CGPoint()
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoding not supported")
@@ -30,19 +31,16 @@ class Parquet: SKSpriteNode {
         self.zPosition = 1
     }
     
-    override func isEqualToNode(node: SKNode) -> Bool {
-        if node == self {
-            return true
-        }
-        return false
-    }
-    
     func barPosition(point: CGPoint) {
         self.barPosition = point
         self.position = point
     }
     func changeToBarPosition() {
         self.position = self.barPosition
+        self.zRotation = CGFloat(0.0)
+    }
+    func addLastPosition(point: CGPoint) {
+        lastPosition = point
     }
     
 }

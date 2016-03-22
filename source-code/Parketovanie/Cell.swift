@@ -28,6 +28,8 @@ class Cell: SKSpriteNode {
         self.name = "cell"
         self.row = row
         self.collumn = collumn
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.zPosition = CGFloat(2.0)
     }
     
     func reserve(reserved: Bool) {

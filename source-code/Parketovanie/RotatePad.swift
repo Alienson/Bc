@@ -9,15 +9,13 @@
 import Foundation
 import SpriteKit
 
-class RotatePad: SKSpriteNode {
+class RotatePad: FrameController {
     var catchedParquet = Parquet()
     var isPadEmpty = true
     
     init(size: CGSize) {
-        super.init(texture: nil, color: UIColor.greenColor(), size: size)
-        super.name = "rotatePad"
-        self.anchorPoint = CGPoint(x: 0, y: 0)
-        self.inputAccessoryViewController
+        super.init(size: size, position: CGPoint(x: 40, y: 500), name: "rotatePad", color: UIColor.greenColor())
+        //self.inputAccessoryViewController
         self.isPadEmpty = true
         
         super.position = CGPoint(x: 40, y: 500)
@@ -29,20 +27,15 @@ class RotatePad: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func isOnPadPosition(nodePosition: CGPoint) -> Bool {
-        print(nodePosition)
-        // zistit ci sa parketa nachadza na pozicii rotatePad
-        return true
-    }
-    
-    func midOfPad() -> CGPoint {
-        let centerPoint: CGPoint = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        return centerPoint
-    }
-    
-    func setParquetToPad(parquet: Parquet) {
+    func pinParquetToPad(parquet: Parquet) {
         self.catchedParquet = parquet
+        self.catchedParquet.rotatable = true
         self.isPadEmpty = false
+    }
+    func unpinParquetFromPad() {
+        self.catchedParquet.rotatable = false
+        self.catchedParquet = Parquet()
+        self.isPadEmpty = true
     }
     
 }
