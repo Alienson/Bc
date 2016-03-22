@@ -79,7 +79,7 @@ class Surface {
         print(node.position.x, node.position.y)
         print(nodeConvertedPosition.x, nodeConvertedPosition.y)
         
-        // zistit ci sa parketa nachadza na pozicii rotatePad
+        // zistit ci sa parketa nachadza na pozicii surface
         if (
             node.position.x >= (nodeConvertedPosition.x - surface.frame.height/2) &&
             node.position.y >= (nodeConvertedPosition.y - surface.frame.width/2) &&
