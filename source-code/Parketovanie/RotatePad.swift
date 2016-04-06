@@ -12,9 +12,12 @@ import SpriteKit
 class RotatePad: FrameController {
     var catchedParquet = Parquet()
     var isPadEmpty = true
+    var level = Level()
     
-    init(size: CGSize) {
-        super.init(size: size, position: CGPoint(x: 40, y: 500), name: "rotatePad", color: UIColor.greenColor())
+    init(size: CGSize, level: Int, parent: SKSpriteNode) {
+        let color = self.level.value(level).color
+        let position = CGPoint(x: 40, y: 500)
+        super.init(size: size, name: "rotatePad", position: position, parent: parent, color: color)
         //self.inputAccessoryViewController
         self.isPadEmpty = true
         

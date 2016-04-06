@@ -10,9 +10,9 @@
 		5318E9981C43EF5800CB2430 /* Parquet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5318E9971C43EF5800CB2430 /* Parquet.swift */; };
 		5327584B1C9ED97E00AA488E /* FrameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5327584A1C9ED97E00AA488E /* FrameController.swift */; };
 		5327584D1C9EF04B00AA488E /* LeftBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5327584C1C9EF04B00AA488E /* LeftBar.swift */; };
-		5346B4F71C44A3D000B1D741 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5346B4F61C44A3D000B1D741 /* Cell.swift */; };
 		5346B4F91C44A6F300B1D741 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5346B4F81C44A6F300B1D741 /* click.wav */; };
-		538A53D11C70F3E500F75D20 /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538A53D01C70F3E500F75D20 /* Surface.swift */; };
+		534891B31CAF3BE5001A97C0 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534891B21CAF3BE5001A97C0 /* Cell.swift */; };
+		538A53D11C70F3E500F75D20 /* SurfaceBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538A53D01C70F3E500F75D20 /* SurfaceBackground.swift */; };
 		539112131C3AB072006BC782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539112121C3AB072006BC782 /* AppDelegate.swift */; };
 		539112171C3AB072006BC782 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539112161C3AB072006BC782 /* GameScene.swift */; };
 		539112191C3AB072006BC782 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539112181C3AB072006BC782 /* GameViewController.swift */; };
@@ -20,7 +20,9 @@
 		5391121E1C3AB072006BC782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5391121D1C3AB072006BC782 /* Assets.xcassets */; };
 		539112211C3AB072006BC782 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5391121F1C3AB072006BC782 /* LaunchScreen.storyboard */; };
 		539FB8661C75397400E31BD1 /* RotatePad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539FB8651C75397400E31BD1 /* RotatePad.swift */; };
+		53A9D6A51CA5EAEF00DF46EB /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9D6A41CA5EAEF00DF46EB /* Surface.swift */; };
 		53D703861C976E5800F428D5 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D703851C976E5800F428D5 /* Level.swift */; };
+		53F681951CB2E7EC00A92E5C /* ParquetElko.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F681941CB2E7EC00A92E5C /* ParquetElko.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,9 +30,9 @@
 		5318E9971C43EF5800CB2430 /* Parquet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parquet.swift; sourceTree = "<group>"; };
 		5327584A1C9ED97E00AA488E /* FrameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameController.swift; sourceTree = "<group>"; };
 		5327584C1C9EF04B00AA488E /* LeftBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftBar.swift; sourceTree = "<group>"; };
-		5346B4F61C44A3D000B1D741 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		5346B4F81C44A6F300B1D741 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
-		538A53D01C70F3E500F75D20 /* Surface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Surface.swift; sourceTree = "<group>"; };
+		534891B21CAF3BE5001A97C0 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		538A53D01C70F3E500F75D20 /* SurfaceBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurfaceBackground.swift; sourceTree = "<group>"; };
 		5391120F1C3AB072006BC782 /* Parketovanie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Parketovanie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		539112121C3AB072006BC782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		539112161C3AB072006BC782 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -40,7 +42,9 @@
 		539112201C3AB072006BC782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		539112221C3AB072006BC782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		539FB8651C75397400E31BD1 /* RotatePad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatePad.swift; sourceTree = "<group>"; };
+		53A9D6A41CA5EAEF00DF46EB /* Surface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Surface.swift; sourceTree = "<group>"; };
 		53D703851C976E5800F428D5 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		53F681941CB2E7EC00A92E5C /* ParquetElko.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParquetElko.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,17 +89,19 @@
 			children = (
 				539112121C3AB072006BC782 /* AppDelegate.swift */,
 				539112161C3AB072006BC782 /* GameScene.swift */,
-				5327584C1C9EF04B00AA488E /* LeftBar.swift */,
 				539112181C3AB072006BC782 /* GameViewController.swift */,
 				5318E9971C43EF5800CB2430 /* Parquet.swift */,
-				5346B4F61C44A3D000B1D741 /* Cell.swift */,
-				538A53D01C70F3E500F75D20 /* Surface.swift */,
-				53D703851C976E5800F428D5 /* Level.swift */,
+				53F681941CB2E7EC00A92E5C /* ParquetElko.swift */,
+				534891B21CAF3BE5001A97C0 /* Cell.swift */,
+				53A9D6A41CA5EAEF00DF46EB /* Surface.swift */,
+				538A53D01C70F3E500F75D20 /* SurfaceBackground.swift */,
 				539FB8651C75397400E31BD1 /* RotatePad.swift */,
+				5327584C1C9EF04B00AA488E /* LeftBar.swift */,
 				5391121A1C3AB072006BC782 /* Main.storyboard */,
 				5391121D1C3AB072006BC782 /* Assets.xcassets */,
 				5391121F1C3AB072006BC782 /* LaunchScreen.storyboard */,
 				539112221C3AB072006BC782 /* Info.plist */,
+				53D703851C976E5800F428D5 /* Level.swift */,
 				5327584A1C9ED97E00AA488E /* FrameController.swift */,
 			);
 			path = Parketovanie;
@@ -175,13 +181,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5327584D1C9EF04B00AA488E /* LeftBar.swift in Sources */,
+				53F681951CB2E7EC00A92E5C /* ParquetElko.swift in Sources */,
 				539112171C3AB072006BC782 /* GameScene.swift in Sources */,
-				538A53D11C70F3E500F75D20 /* Surface.swift in Sources */,
+				538A53D11C70F3E500F75D20 /* SurfaceBackground.swift in Sources */,
 				53D703861C976E5800F428D5 /* Level.swift in Sources */,
 				539FB8661C75397400E31BD1 /* RotatePad.swift in Sources */,
+				534891B31CAF3BE5001A97C0 /* Cell.swift in Sources */,
 				5318E9981C43EF5800CB2430 /* Parquet.swift in Sources */,
+				53A9D6A51CA5EAEF00DF46EB /* Surface.swift in Sources */,
 				5327584B1C9ED97E00AA488E /* FrameController.swift in Sources */,
-				5346B4F71C44A3D000B1D741 /* Cell.swift in Sources */,
 				539112191C3AB072006BC782 /* GameViewController.swift in Sources */,
 				539112131C3AB072006BC782 /* AppDelegate.swift in Sources */,
 			);

@@ -11,9 +11,10 @@ import SpriteKit
 
 class Level {
     var values = [
-        1: (color: UIColor(red: 97, green: 201, blue: 155, alpha: 1), string: "prvý"),
+        //1: (color: UIColor(red: 97, green: 201, blue: 155, alpha: 1), string: "prvý"),
+        1: (color: UIColor(hexString: "#ffe700ff")!, string: "prvý"),
         2: (color: UIColor.redColor(), string: "druhý"),
-        3: (color: UIColor.whiteColor(), string: "tretí")
+        3: (color: UIColor.blackColor(), string: "tretí")
     ]
     func value(key: Int) -> (color: UIColor, string: String) {
         return self.values[key]!

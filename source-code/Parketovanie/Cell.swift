@@ -2,33 +2,49 @@
 //  Cell.swift
 //  Parketovanie
 //
-//  Created by Adam Turna on 12.1.2016.
+//  Created by Adam Turna on 2.4.2016.
 //  Copyright © 2016 Adam Turna. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 
-class Cell: SKSpriteNode {
+class Cell: FrameController {
     var row: Int = Int()
     var collumn: Int = Int()
     var reserved: Bool = Bool()
     
-    init(row: Int, collumn: Int, isEmpty: Bool = true) {
+    init() {
+        // Testovacia Cell
+        super.init(textureName: "stvorec-50x50")
+    }
+    
+    init(position: CGPoint, parent: SKSpriteNode) {
+        let texture = SKTexture(imageNamed: "stvorec-50x50")
+        super.init(size: texture.size(), name: "cell", parent: parent)
+        super.position = position
+    }
+    
+    init(row: Int, collumn: Int, isEmpty: Bool = true, parent: SKSpriteNode) {
+        let imageNamed = "stvorec-50x50"
+        super.init(textureName: imageNamed, name: "cell", parent: parent)
         if isEmpty {
-            super.init(texture: nil, color: UIColor.whiteColor(), size: CGSize(width: 50, height: 50))
             reserved = true
         }
         else {
-            let imageNamed = "stvorec-50x50"
-            let cellTexture = SKTexture(imageNamed: imageNamed)
-            super.init(texture: cellTexture, color: UIColor.whiteColor(), size: cellTexture.size())
             reserved = false
         }
-        self.name = "cell"
         self.row = row
         self.collumn = collumn
-        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.zPosition = CGFloat(2.0)
+    }
+    
+    init(row: Int, collumn: Int, parent: SKSpriteNode) {
+        let texture = SKTexture(imageNamed: "stvorec-50x50")
+        super.init(size: texture.size(), name: "cell", parent: parent)
+        reserved = true
+        self.row = row
+        self.collumn = collumn
         self.zPosition = CGFloat(2.0)
     }
     
@@ -43,3 +59,4 @@ class Cell: SKSpriteNode {
         fatalError("NSCoding not supported")
     }
 }
+

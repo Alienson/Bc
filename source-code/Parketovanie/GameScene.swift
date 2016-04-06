@@ -12,11 +12,13 @@ import Foundation
 class GameScene: SKScene {
     var selectedNode = SKNode()
     
-    var listOfParquets: [Parquet] = []
     let background = SKSpriteNode(imageNamed: "hracia_plocha_lvl1")
     //var surfaceBackground = SKSpriteNode()
-    var surface = Surface()
-    var rotatePad = RotatePad(size: CGSize(width: 200, height: 200))
+    var surfaceBack: SurfaceBackground?
+    var surface: Surface?
+    //var rotatePad = RotatePad(size: CGSize(width: 200, height: 200), level: 1, parent: background)
+    var rotatePad: RotatePad?
+    var leftBar: LeftBar?
     
     let panRec = UIPanGestureRecognizer()
     
@@ -31,9 +33,9 @@ class GameScene: SKScene {
         self.background.anchorPoint = CGPoint(x: 0, y: 0)
         addChild(self.background)
         
-        leftBarlvl1()
-        
-        makeRoratePad()
+        makeleftBar(1)
+        makeSurface(1)
+        makeRoratePad(1)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,8 +80,17 @@ class GameScene: SKScene {
                 var translation = sender.translationInView(sender.view!)
                 translation = CGPoint(x: translation.x, y: -translation.y)
                 let position = selectedParquet.position
-                selectedParquet.position = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
+                //selectedParquet.position = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
+                selectedParquet.changePosition(translation)
                 sender.setTranslation(CGPointZero, inView: sender.view)
+                
+                print("menim")
+                //let surf = self.surface
+                //print(surf.surface.convertPoint(CGPointZero, toNode: self))
+                //print(surf.surface.frame.origin.x+280, surf.surface.frame.origin.y+176)
+                //print(surf.surface.convertPoint(CGPointZero, toNode: surf.surfaceBackground.frame.origin))
+                print(selectedParquet.position)
+                
                 
                 //umiestni node do stredu
                 //self.selectedNode.position = CGPoint(x: surfaceBackground.frame.midX, y: surfaceBackground.frame.midY)
@@ -91,27 +102,32 @@ class GameScene: SKScene {
         if sender.state == .Ended {
             print("panned ENDED")
             if let selectedParquet = self.selectedNode as? Parquet {
-                if rotatePad.isOnFramePosition(selectedParquet.position) {
-                    if rotatePad.isPadEmpty {
-                        rotatePad.pinParquetToPad(selectedParquet)
-                        selectedParquet.position = rotatePad.midOfFrame()
-                    }
-                    else if !rotatePad.isPadEmpty && selectedParquet == rotatePad.catchedParquet {
-                        selectedParquet.position = rotatePad.midOfFrame()
-                    }
-                    else {
-                        rotatePad.unpinParquetFromPad()
-                        selectedParquet.changeToBarPosition()
+                if let rotatePad = self.rotatePad {
+                    if let surface = self.surface {
+                        if rotatePad.isOnFramePosition(selectedParquet.position) {
+                            if rotatePad.isPadEmpty {
+                                rotatePad.pinParquetToPad(selectedParquet)
+                                selectedParquet.position = rotatePad.midOfFrame()
+                            }
+                            else if !rotatePad.isPadEmpty && selectedParquet == rotatePad.catchedParquet {
+                                selectedParquet.position = rotatePad.midOfFrame()
+                            }
+                            else {
+                                rotatePad.unpinParquetFromPad()
+                                selectedParquet.changeToBarPosition()
+                            }
+                        }
+                        else if surface.isOnFramePosition(selectedParquet.position) {
+                            print("is on surface")
+                            selectedParquet.position = surface.midOfFrame()
+                        }
+                        else {
+                            rotatePad.unpinParquetFromPad()
+                            selectedParquet.changeToBarPosition()
+                        }
                     }
                 }
-                else if surface.isOnSurfacePosition(selectedNode) {
-                    print("is on surface")
-                    selectedParquet.position = surface.midOfSurface()
-                }
-                else {
-                    rotatePad.unpinParquetFromPad()
-                    selectedParquet.changeToBarPosition()
-                }
+                
             }
             deSelectNode()
         }
@@ -157,61 +173,21 @@ class GameScene: SKScene {
     }
     
     func makeSurface(levelNumber: Int) {
-        self.surface = Surface(rows: 3, collumns: 4, parent: self.background, levelNumber: levelNumber)
+        self.surfaceBack = SurfaceBackground(parent: self.background, levelNumber: levelNumber)
+        self.surface = Surface(rows: 6, collumns: 5, parent: self.background, background: self.surfaceBack!)
+        addChild(self.surfaceBack!)
+        addChild(self.surface!)
     }
     
-    func makeRoratePad() {
-        addChild(rotatePad)
+    func makeRoratePad(levelNumber: Int) {
+        self.rotatePad = RotatePad(size: CGSize(width: 200, height: 200), level: levelNumber, parent: background)
+        addChild(self.rotatePad!)
     }
     
-    func leftBarlvl1() {
-        
-//        let leftBar = SKSpriteNode(imageNamed: "lava_lista")
-//        leftBar.position    = CGPoint(x:0, y: 0)
-//        leftBar.anchorPoint = CGPoint(x: 0, y: 0)
-//        leftBar.name = "lava_lista"
-//        background.addChild(leftBar)
-//        
-        let offset = CGFloat(12.5)
-        let offsetY = CGFloat(100)
-        let width = CGFloat(280)
-        let firstLineParquets = CGFloat(250)
-        let secondLineParquets = CGFloat(150)
-        
-//        _ = leftBar.size.height
-//        let width = leftBar.size.width
-        
-        
-        
-        let mono            = Parquet(imageNamed: "1-mono")
-        let duo             = Parquet(imageNamed: "2-duo")
-        let trio            = Parquet(imageNamed: "3-3I")
-        let roztek          = Parquet(imageNamed: "4-roztek")
-        let stvorka         = Parquet(imageNamed: "5-stvorka")
-        let elko            = Parquet(imageNamed: "6-elko")
-        let elko_obratene   = Parquet(imageNamed: "7-elko-obratene")
-        
-        mono.barPosition(CGPointMake(width / 4 - offset, offsetY+firstLineParquets))
-        duo.barPosition(CGPointMake(width / 2, offsetY+firstLineParquets+25))
-        trio.barPosition(CGPointMake(3 * width / 4 + offset, offsetY+firstLineParquets+50))
-        roztek.barPosition(CGPointMake(width / 3 - offset, offsetY+secondLineParquets))
-        stvorka.barPosition(CGPointMake(2 * width / 3 + offset, offsetY+secondLineParquets))
-        elko.barPosition(CGPointMake(width / 3 - offset, offsetY))
-        elko_obratene.barPosition(CGPointMake(2 * width / 3 + offset, offsetY))
-        
-        listOfParquets.append(mono)
-        listOfParquets.append(duo)
-        listOfParquets.append(trio)
-        listOfParquets.append(roztek)
-        listOfParquets.append(stvorka)
-        listOfParquets.append(elko)
-        listOfParquets.append(elko_obratene)
-        
-        for par in listOfParquets {
-            background.addChild(par)
-        }
-        
-        makeSurface(1)
+    func makeleftBar(levelNumber: Int) {
+        //height prerobit
+        self.leftBar = LeftBar(size: CGSize(width: 280, height: background.size.height), level: levelNumber, parent: background)
+        addChild(self.leftBar!)
     }
     
     
