@@ -13,6 +13,7 @@ class Cell: FrameController {
     var row: Int = Int()
     var collumn: Int = Int()
     var reserved: Bool = Bool()
+    var barPosition: CGPoint?
     
     init() {
         // Testovacia Cell
@@ -23,6 +24,7 @@ class Cell: FrameController {
         let texture = SKTexture(imageNamed: "stvorec-50x50")
         super.init(size: texture.size(), name: "cell", parent: parent)
         super.position = position
+        addLastPosition(self.position)
     }
     
     init(row: Int, collumn: Int, isEmpty: Bool = true, parent: SKSpriteNode) {
@@ -37,6 +39,7 @@ class Cell: FrameController {
         self.row = row
         self.collumn = collumn
         self.zPosition = CGFloat(2.0)
+        addLastPosition(self.position)
     }
     
     init(row: Int, collumn: Int, parent: SKSpriteNode) {
@@ -46,6 +49,7 @@ class Cell: FrameController {
         self.row = row
         self.collumn = collumn
         self.zPosition = CGFloat(2.0)
+        addLastPosition(self.position)
     }
     
     func reserve(reserved: Bool) {

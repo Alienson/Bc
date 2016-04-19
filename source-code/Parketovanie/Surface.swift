@@ -16,15 +16,15 @@ class Surface: FrameController {
     init(rows: Int, collumns: Int, parent: SKSpriteNode, background: SurfaceBackground) {
         let size = CGSize(width: collumns*50, height: rows*50)
         super.init(size: size, name: "surface", parent: parent)
+        self.position = CGPoint(x: background.midOfFrame().x - self.frame.width/2, y: background.midOfFrame().y - self.frame.height/2)        
         
         for row in 0...rows-1 {
             var cellsForRow = [Cell]()
             for collumn in 0...collumns-1 {
                 let cell = Cell(row: row, collumn: collumn, isEmpty: false, parent: parent)
                 cellsForRow.append(cell)
-                let x = (background.midOfFrame().x - self.frame.width/2) + CGFloat(Int(cell.frame.width) * collumn)
-                //let x = background.midOfFrame().x
-                let y = (background.midOfFrame().y - self.frame.height/2) + CGFloat(Int(cell.frame.height) * row)
+                let x = self.position.x + CGFloat(Int(cell.frame.width) * collumn)
+                let y = self.position.y + CGFloat(Int(cell.frame.height) * row)
                 cell.position = CGPoint(x: x, y: y)
                 //print(x,y)
                 cell.alpha = CGFloat(1.0)

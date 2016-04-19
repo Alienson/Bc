@@ -12,6 +12,12 @@
 		5327584D1C9EF04B00AA488E /* LeftBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5327584C1C9EF04B00AA488E /* LeftBar.swift */; };
 		5346B4F91C44A6F300B1D741 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5346B4F81C44A6F300B1D741 /* click.wav */; };
 		534891B31CAF3BE5001A97C0 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534891B21CAF3BE5001A97C0 /* Cell.swift */; };
+		534935EA1CC6138100E78B96 /* ParquetMono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534935E91CC6138100E78B96 /* ParquetMono.swift */; };
+		534935EC1CC6138C00E78B96 /* ParquetDuo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534935EB1CC6138C00E78B96 /* ParquetDuo.swift */; };
+		534935EE1CC6139500E78B96 /* ParquetTrio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534935ED1CC6139500E78B96 /* ParquetTrio.swift */; };
+		534935F01CC613A600E78B96 /* ParquetRoztek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534935EF1CC613A600E78B96 /* ParquetRoztek.swift */; };
+		534935F21CC613B400E78B96 /* ParquetStvorka.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534935F11CC613B400E78B96 /* ParquetStvorka.swift */; };
+		534935F41CC613C500E78B96 /* ParquetElkoObratene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534935F31CC613C500E78B96 /* ParquetElkoObratene.swift */; };
 		538A53D11C70F3E500F75D20 /* SurfaceBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538A53D01C70F3E500F75D20 /* SurfaceBackground.swift */; };
 		539112131C3AB072006BC782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539112121C3AB072006BC782 /* AppDelegate.swift */; };
 		539112171C3AB072006BC782 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539112161C3AB072006BC782 /* GameScene.swift */; };
@@ -32,6 +38,12 @@
 		5327584C1C9EF04B00AA488E /* LeftBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftBar.swift; sourceTree = "<group>"; };
 		5346B4F81C44A6F300B1D741 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		534891B21CAF3BE5001A97C0 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		534935E91CC6138100E78B96 /* ParquetMono.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParquetMono.swift; sourceTree = "<group>"; };
+		534935EB1CC6138C00E78B96 /* ParquetDuo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParquetDuo.swift; sourceTree = "<group>"; };
+		534935ED1CC6139500E78B96 /* ParquetTrio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParquetTrio.swift; sourceTree = "<group>"; };
+		534935EF1CC613A600E78B96 /* ParquetRoztek.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParquetRoztek.swift; sourceTree = "<group>"; };
+		534935F11CC613B400E78B96 /* ParquetStvorka.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParquetStvorka.swift; sourceTree = "<group>"; };
+		534935F31CC613C500E78B96 /* ParquetElkoObratene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParquetElkoObratene.swift; sourceTree = "<group>"; };
 		538A53D01C70F3E500F75D20 /* SurfaceBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurfaceBackground.swift; sourceTree = "<group>"; };
 		5391120F1C3AB072006BC782 /* Parketovanie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Parketovanie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		539112121C3AB072006BC782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +78,42 @@
 			name = Sounds;
 			sourceTree = "<group>";
 		};
+		534935F51CC6140400E78B96 /* Parquets */ = {
+			isa = PBXGroup;
+			children = (
+				534935E91CC6138100E78B96 /* ParquetMono.swift */,
+				534935EB1CC6138C00E78B96 /* ParquetDuo.swift */,
+				534935ED1CC6139500E78B96 /* ParquetTrio.swift */,
+				534935EF1CC613A600E78B96 /* ParquetRoztek.swift */,
+				534935F11CC613B400E78B96 /* ParquetStvorka.swift */,
+				53F681941CB2E7EC00A92E5C /* ParquetElko.swift */,
+				534935F31CC613C500E78B96 /* ParquetElkoObratene.swift */,
+			);
+			name = Parquets;
+			sourceTree = "<group>";
+		};
+		534935F61CC6143C00E78B96 /* SceneObjects */ = {
+			isa = PBXGroup;
+			children = (
+				53A9D6A41CA5EAEF00DF46EB /* Surface.swift */,
+				538A53D01C70F3E500F75D20 /* SurfaceBackground.swift */,
+				539FB8651C75397400E31BD1 /* RotatePad.swift */,
+				5327584C1C9EF04B00AA488E /* LeftBar.swift */,
+			);
+			name = SceneObjects;
+			sourceTree = "<group>";
+		};
+		534935F71CC6146200E78B96 /* AbstractClasses */ = {
+			isa = PBXGroup;
+			children = (
+				5318E9971C43EF5800CB2430 /* Parquet.swift */,
+				534891B21CAF3BE5001A97C0 /* Cell.swift */,
+				53D703851C976E5800F428D5 /* Level.swift */,
+				5327584A1C9ED97E00AA488E /* FrameController.swift */,
+			);
+			name = AbstractClasses;
+			sourceTree = "<group>";
+		};
 		539112061C3AB072006BC782 = {
 			isa = PBXGroup;
 			children = (
@@ -90,19 +138,13 @@
 				539112121C3AB072006BC782 /* AppDelegate.swift */,
 				539112161C3AB072006BC782 /* GameScene.swift */,
 				539112181C3AB072006BC782 /* GameViewController.swift */,
-				5318E9971C43EF5800CB2430 /* Parquet.swift */,
-				53F681941CB2E7EC00A92E5C /* ParquetElko.swift */,
-				534891B21CAF3BE5001A97C0 /* Cell.swift */,
-				53A9D6A41CA5EAEF00DF46EB /* Surface.swift */,
-				538A53D01C70F3E500F75D20 /* SurfaceBackground.swift */,
-				539FB8651C75397400E31BD1 /* RotatePad.swift */,
-				5327584C1C9EF04B00AA488E /* LeftBar.swift */,
+				534935F71CC6146200E78B96 /* AbstractClasses */,
+				534935F61CC6143C00E78B96 /* SceneObjects */,
+				534935F51CC6140400E78B96 /* Parquets */,
 				5391121A1C3AB072006BC782 /* Main.storyboard */,
 				5391121D1C3AB072006BC782 /* Assets.xcassets */,
 				5391121F1C3AB072006BC782 /* LaunchScreen.storyboard */,
 				539112221C3AB072006BC782 /* Info.plist */,
-				53D703851C976E5800F428D5 /* Level.swift */,
-				5327584A1C9ED97E00AA488E /* FrameController.swift */,
 			);
 			path = Parketovanie;
 			sourceTree = "<group>";
@@ -181,17 +223,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				5327584D1C9EF04B00AA488E /* LeftBar.swift in Sources */,
+				534935EC1CC6138C00E78B96 /* ParquetDuo.swift in Sources */,
 				53F681951CB2E7EC00A92E5C /* ParquetElko.swift in Sources */,
 				539112171C3AB072006BC782 /* GameScene.swift in Sources */,
 				538A53D11C70F3E500F75D20 /* SurfaceBackground.swift in Sources */,
 				53D703861C976E5800F428D5 /* Level.swift in Sources */,
+				534935EE1CC6139500E78B96 /* ParquetTrio.swift in Sources */,
 				539FB8661C75397400E31BD1 /* RotatePad.swift in Sources */,
+				534935F21CC613B400E78B96 /* ParquetStvorka.swift in Sources */,
 				534891B31CAF3BE5001A97C0 /* Cell.swift in Sources */,
 				5318E9981C43EF5800CB2430 /* Parquet.swift in Sources */,
 				53A9D6A51CA5EAEF00DF46EB /* Surface.swift in Sources */,
 				5327584B1C9ED97E00AA488E /* FrameController.swift in Sources */,
 				539112191C3AB072006BC782 /* GameViewController.swift in Sources */,
 				539112131C3AB072006BC782 /* AppDelegate.swift in Sources */,
+				534935EA1CC6138100E78B96 /* ParquetMono.swift in Sources */,
+				534935F01CC613A600E78B96 /* ParquetRoztek.swift in Sources */,
+				534935F41CC613C500E78B96 /* ParquetElkoObratene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

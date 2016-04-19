@@ -22,6 +22,8 @@ class GameScene: SKScene {
     
     let panRec = UIPanGestureRecognizer()
     
+    var arrayOfFrameControlledObjects = [FrameController]()
+    
     var level = Level()
     
     override init(size: CGSize) {
@@ -68,11 +70,10 @@ class GameScene: SKScene {
         
         if sender.state == .Began {
             print("panned BEGAN")
-            if selectedNode.isKindOfClass(Parquet) {
+            if let selectedParquet = selectedNode as? Parquet {
                 self.selectedNode = selectedNode
-            }
-            if let selectedParquet = self.selectedNode as? Parquet {
                 selectedParquet.zPosition = 15
+                selectedParquet.addLastPosition(selectedParquet.position)
             }
         }
         if sender.state == .Changed {
@@ -81,15 +82,15 @@ class GameScene: SKScene {
                 translation = CGPoint(x: translation.x, y: -translation.y)
                 let position = selectedParquet.position
                 //selectedParquet.position = CGPoint(x: position.x + translation.x, y: position.y + translation.y)
-                selectedParquet.changePosition(translation)
+                selectedParquet.translatePosition(translation)
                 sender.setTranslation(CGPointZero, inView: sender.view)
                 
-                print("menim")
+                //print("menim")
                 //let surf = self.surface
                 //print(surf.surface.convertPoint(CGPointZero, toNode: self))
                 //print(surf.surface.frame.origin.x+280, surf.surface.frame.origin.y+176)
                 //print(surf.surface.convertPoint(CGPointZero, toNode: surf.surfaceBackground.frame.origin))
-                print(selectedParquet.position)
+                print(selectedParquet.name ,selectedParquet.position)
                 
                 
                 //umiestni node do stredu
@@ -102,31 +103,54 @@ class GameScene: SKScene {
         if sender.state == .Ended {
             print("panned ENDED")
             if let selectedParquet = self.selectedNode as? Parquet {
-                if let rotatePad = self.rotatePad {
-                    if let surface = self.surface {
-                        if rotatePad.isOnFramePosition(selectedParquet.position) {
-                            if rotatePad.isPadEmpty {
-                                rotatePad.pinParquetToPad(selectedParquet)
-                                selectedParquet.position = rotatePad.midOfFrame()
+                var findControlledFrame = false
+                for object in arrayOfFrameControlledObjects {
+                    if object.isOnFramePosition(selectedParquet.position) {
+                        findControlledFrame = true
+                        if let rPad = object as? RotatePad {
+                            if rPad.isPadEmpty {
+                                rPad.pinParquetToPad(selectedParquet)
+                                selectedParquet.changePosition(rPad.midOfFrame())
                             }
-                            else if !rotatePad.isPadEmpty && selectedParquet == rotatePad.catchedParquet {
-                                selectedParquet.position = rotatePad.midOfFrame()
+                            else if !rPad.isPadEmpty && selectedParquet == rPad.catchedParquet {
+                                selectedParquet.changePosition(rPad.midOfFrame())
                             }
                             else {
-                                rotatePad.unpinParquetFromPad()
+                                rPad.unpinParquetFromPad()
                                 selectedParquet.changeToBarPosition()
                             }
                         }
-                        else if surface.isOnFramePosition(selectedParquet.position) {
-                            print("is on surface")
-                            selectedParquet.position = surface.midOfFrame()
-                        }
-                        else {
-                            rotatePad.unpinParquetFromPad()
-                            selectedParquet.changeToBarPosition()
-                        }
+                        //selectedParquet.changePosition(object.midOfFrame())
                     }
                 }
+                if !findControlledFrame {
+                    selectedParquet.changeToBarPosition()
+                }
+//                if let rotatePad = self.rotatePad {
+//                    if let surface = self.surface {
+//                        if rotatePad.isOnFramePosition(selectedParquet.position) {
+//                            if rotatePad.isPadEmpty {
+//                                rotatePad.pinParquetToPad(selectedParquet)
+//                                selectedParquet.position = rotatePad.midOfFrame()
+//                            }
+//                            else if !rotatePad.isPadEmpty && selectedParquet == rotatePad.catchedParquet {
+//                                selectedParquet.position = rotatePad.midOfFrame()
+//                            }
+//                            else {
+//                                rotatePad.unpinParquetFromPad()
+//                                selectedParquet.changeToBarPosition()
+//                            }
+//                        }
+//                        else if surface.isOnFramePosition(selectedParquet.position) {
+//                            print("is on surface")
+//                            selectedParquet.position = surface.midOfFrame()
+//                        }
+//                        else {
+//                            rotatePad.unpinParquetFromPad()
+//                            selectedParquet.changeToBarPosition()
+//                        }
+//                    }
+//                }
                 
             }
             deSelectNode()
@@ -174,20 +198,27 @@ class GameScene: SKScene {
     
     func makeSurface(levelNumber: Int) {
         self.surfaceBack = SurfaceBackground(parent: self.background, levelNumber: levelNumber)
-        self.surface = Surface(rows: 6, collumns: 5, parent: self.background, background: self.surfaceBack!)
         addChild(self.surfaceBack!)
+        self.surface = Surface(rows: 6, collumns: 5, parent: self.background, background: self.surfaceBack!)
         addChild(self.surface!)
+        print(self.surface!.position)
+        arrayOfFrameControlledObjects.append(self.surface!)
+        
     }
     
     func makeRoratePad(levelNumber: Int) {
         self.rotatePad = RotatePad(size: CGSize(width: 200, height: 200), level: levelNumber, parent: background)
         addChild(self.rotatePad!)
+        arrayOfFrameControlledObjects.append(self.rotatePad!)
     }
     
     func makeleftBar(levelNumber: Int) {
         //height prerobit
-        self.leftBar = LeftBar(size: CGSize(width: 280, height: background.size.height), level: levelNumber, parent: background)
+        //self.leftBar = LeftBar(size: CGSize(width: 280, height: background.size.height), level: levelNumber, parent: background)
+        self.leftBar = LeftBar(size: CGSize(width: 280, height: 500), level: levelNumber, parent: background)
         addChild(self.leftBar!)
+        print(self.leftBar?.anchorPoint)
+        //arrayOfFrameControlledObjects.append(self.leftBar!)
     }
     
     

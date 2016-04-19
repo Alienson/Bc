@@ -1,28 +1,28 @@
 //
-//  ParquetElko.swift
+//  ParquetElkoObratene.swift
 //  Parketovanie
 //
-//  Created by Adam Turna on 4.4.2016.
+//  Created by Adam Turna on 19.4.2016.
 //  Copyright © 2016 Adam Turna. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 
-class ParquetElko: Parquet {
+class ParquetElkoObratene: Parquet {
     
     init(parent: SKSpriteNode, position: CGPoint){
-        super.init(imageNamed: "6-elko", position: position)
+        super.init(imageNamed: "7-elko-obratene", position: position)
         let abstractCell = Cell()
         let height = abstractCell.frame.height
-//        self.arrayOfCells.append(Cell(position: CGPoint(x: self.frame.minX, y: self.frame.maxY-height), parent: parent))
-//        self.arrayOfCells.append(Cell(position: CGPoint(x: self.frame.minX, y: self.frame.maxY-height*2), parent: parent))
-//        self.arrayOfCells.append(Cell(position: CGPoint(x: self.frame.minX, y: self.frame.maxY-height*3), parent: parent))
-//        self.arrayOfCells.append(Cell(position: CGPoint(x: self.frame.minX+height, y: self.frame.maxY-height*3), parent: parent))
-        self.arrayOfCells.append(Cell(position: CGPoint(x: -height/2, y: height), parent: parent))
-        self.arrayOfCells.append(Cell(position: CGPoint(x: -height/2, y: 0), parent: parent))
-        self.arrayOfCells.append(Cell(position: CGPoint(x: -height/2, y: -height), parent: parent))
+        //        self.arrayOfCells.append(Cell(position: CGPoint(x: self.frame.minX, y: self.frame.maxY-height), parent: parent))
+        //        self.arrayOfCells.append(Cell(position: CGPoint(x: self.frame.minX, y: self.frame.maxY-height*2), parent: parent))
+        //        self.arrayOfCells.append(Cell(position: CGPoint(x: self.frame.minX, y: self.frame.maxY-height*3), parent: parent))
+        //        self.arrayOfCells.append(Cell(position: CGPoint(x: self.frame.minX+height, y: self.frame.maxY-height*3), parent: parent))
+        self.arrayOfCells.append(Cell(position: CGPoint(x: height/2, y: height), parent: parent))
+        self.arrayOfCells.append(Cell(position: CGPoint(x: height/2, y: 0), parent: parent))
         self.arrayOfCells.append(Cell(position: CGPoint(x: height/2, y: -height), parent: parent))
+        self.arrayOfCells.append(Cell(position: CGPoint(x: -height/2, y: -height), parent: parent))
         
         
         //let cell1 = Cell(row: 1, collumn: 1, isEmpty: true, parent: parent)
@@ -38,7 +38,7 @@ class ParquetElko: Parquet {
     }
     
     
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -15,7 +15,12 @@ class LeftBar: FrameController {
     
     init(size: CGSize, level: Int, parent: SKSpriteNode) {
         //size: CGSize(width: 200, height: 200), level: levelNumber, parent: background
-        super.init(size: size, name: "leftBar", parent: parent)
+        //super.init(size: size, name: "leftBar", parent: parent)
+        super.init(size: size, name: "leftBar", parent: parent, color: UIColor.redColor())
+        //let test = SKSpriteNode(texture: nil, color: UIColor.blackColor(), size: size)
+        //test.anchorPoint = CGPoint(x: 0,y: 0)
+        //parent.addChild(test)
+        self.position = CGPoint(x: 0,y: 0)
         leftBarlvl1()
     }
     
@@ -29,7 +34,7 @@ class LeftBar: FrameController {
         //
         let offset = CGFloat(12.5)
         let offsetY = CGFloat(100)
-        let width = CGFloat(280)
+        let width = self.frame.width
         let firstLineParquets = CGFloat(250)
         let secondLineParquets = CGFloat(150)
         

@@ -11,6 +11,7 @@ import SpriteKit
 
 class FrameController: SKSpriteNode {
     var superParent: SKSpriteNode
+    var lastPosition = CGPoint()
     
     init(textureName: String) {
         superParent = SKSpriteNode()
@@ -52,11 +53,9 @@ class FrameController: SKSpriteNode {
     }
     
     func midOfFrame() -> CGPoint {
-        //let centerPoint = self.convertPoint(CGPoint(x: self.frame.midX, y: self.frame.midY), toNode: self.superParent)
         let centerPoint = CGPoint(x: self.frame.midX, y: self.frame.midY)
         return centerPoint
-        
-        //let centerPoint: CGPoint = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        //let centerPoint = self.convertPoint(CGPoint(x: self.frame.midX, y: self.frame.midY), toNode: self.superParent)
         //return centerPoint
     }
     
@@ -69,18 +68,25 @@ class FrameController: SKSpriteNode {
 //        if (
 //            nodePosition.x >= (nodeConvertedPosition.x) &&
 //            nodePosition.y >= (nodeConvertedPosition.y) &&
-//            nodePosition.x <= (nodeConvertedPosition.x + self.frame.height) &&
-//            nodePosition.y <= (nodeConvertedPosition.y + self.frame.width)) {
+//            nodePosition.x <= (nodeConvertedPosition.x + self.frame.width) &&
+//            nodePosition.y <= (nodeConvertedPosition.y + self.frame.height)) {
 //                return true
 //        }
 //        return false
+        //print("node", nodePosition)
+        //print(self.name, self.position,(self.frame.height, self.frame.width))
+        //print("\n")
         if (
             nodePosition.x >= self.position.x &&
             nodePosition.y >= self.position.y &&
-            nodePosition.x <= (self.position.x + self.frame.height) &&
-            nodePosition.y <= (self.position.y + self.frame.width)) {
+            nodePosition.x <= (self.position.x + self.frame.width) &&
+            nodePosition.y <= (self.position.y + self.frame.height)) {
             return true
         }
         return false
+    }
+    
+    func addLastPosition(point: CGPoint) {
+        lastPosition = point
     }
 }

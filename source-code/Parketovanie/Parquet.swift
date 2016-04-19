@@ -29,7 +29,8 @@ class Parquet: SKSpriteNode {
         super.init(texture: parquetTexture, color: UIColor.whiteColor(), size: parquetTexture.size())
         self.name = imageNamed
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.zPosition = 1
+        self.zPosition = 2
+        addLastPosition(self.position)
     }
     
     init(imageNamed: String, position: CGPoint) {
@@ -38,9 +39,10 @@ class Parquet: SKSpriteNode {
         super.init(texture: parquetTexture, color: UIColor.whiteColor(), size: parquetTexture.size())
         self.name = imageNamed
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        self.zPosition = 1
+        self.zPosition = 2
         self.barPosition = position
         self.position = position
+        //addLastPosition(self.position)
     }
     
     func barPosition(point: CGPoint) {
@@ -48,17 +50,29 @@ class Parquet: SKSpriteNode {
         self.position = point
     }
     func changeToBarPosition() {
-        self.changePosition(self.barPosition)
+        self.position = self.barPosition
+        
         self.zRotation = CGFloat(0.0)
+        //addLastPosition(self.position)
     }
     func addLastPosition(point: CGPoint) {
         lastPosition = point
     }
-    func changePosition(point: CGPoint) {
+    func translatePosition(point: CGPoint) {
         self.position = CGPoint(x: position.x + point.x, y: position.y + point.y)
-        for cell in arrayOfCells {
-            cell.position = CGPoint(x: cell.position.x + point.x, y: cell.position.y + point.y)
-        }
+        //for cell in arrayOfCells {
+        //    cell.position = CGPoint(x: cell.position.x + point.x, y: cell.position.y + point.y)
+        //}
+        self.zPosition = 10
+    }
+    func changePosition(point: CGPoint) {
+        self.position = CGPoint(x: lastPosition.x + point.x, y: lastPosition.y + point.y)
+        //for cell in arrayOfCells {
+        //    cell.position = CGPoint(x: cell.lastPosition.x + point.x, y: cell.lastPosition.y + point.y)
+        //}
+        self.zPosition = 10
+        print(self)
+        //addLastPosition(self.position)
     }
     
 }
